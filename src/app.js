@@ -6,16 +6,22 @@ const app = express();
 
 app.use("/admin", adminmiddleware) 
 
-app.get("/admin/data",  (req, res) => {
-    res.send("Admin Data Accessed");
+app.get("/admin/data",  (req, res,next) => {
+
+    
+    
+    res.send("Admin Data Accessed")
+    
+    
+    
 });
-app.delete("/admin/delete", (req, res) => 
+app.delete("/admin/delete", (req, res,next) => 
 {
 
     res.send("Admin Delete Accessed")
 
 })
-app.post("/user/login",(req,res)=>
+app.post("/user/login",(req,res,next)=>
 {
     res.send("User Login Accessed")
 })
@@ -25,11 +31,11 @@ app.use("/user",usermiddleware)
 
 
 
-app.get("/user/data", (req, res, next) => {
+app.get("/user/data", (req, res,next) => {
     res.send("User Data Accessed")
 })
 
-app.delete("/user/delete",  (req, res, next) => {
+app.delete("/user/delete",  (req, res,next) => {
     res.send("User delete Accessed")
 })
 

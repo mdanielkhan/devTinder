@@ -1,5 +1,5 @@
 const adminmiddleware = (req, res, next) => {
-        const token ="admion";
+        const token ="admin";
         const isAuthenticated = token === "admin";        
         if(!isAuthenticated){
             return res.status(401).json({message:"Unauthorized"});
