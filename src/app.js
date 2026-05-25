@@ -4,15 +4,24 @@ const { adminmiddleware, usermiddleware } = require("./utils/middlewares");
 const app = express();
 
 
+
+app.use("/",(err, req, res, next) => {
+    if (err) {
+    console.error(err.stack);
+    res.status(500).send("Something broke!");
+  }
+
+});
+
 app.use("/admin", adminmiddleware) 
 
-app.get("/admin/data",  (req, res,next) => {
 
-    
-    
+
+
+app.get("/admin/data",  (req, res,next) => {
+   
     res.send("Admin Data Accessed")
-    
-    
+ 
     
 });
 app.delete("/admin/delete", (req, res,next) => 
