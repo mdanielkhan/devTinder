@@ -40,7 +40,7 @@ const userSchema = new mongoose.Schema(
         type: String,
         validate: {
             validator: function (value) {
-                return ["Male", "Female", "Other"].includes(value);
+                return ["Male", "Female","male","female","m","M","f","F", "Other","KHUSRA"].includes(value);
             },
             message: "Invalid gender value",
         },
@@ -51,7 +51,7 @@ const userSchema = new mongoose.Schema(
         default: "Hey there! I'm using DevTinder.",
     },
 
-    photourl: {
+    photoUrl: {
         type: String,
         validate: {
             validator: function (value) {
@@ -63,7 +63,7 @@ const userSchema = new mongoose.Schema(
             },}
     },
 
-    skill: {
+    skills: {
         type: [String],
     },
 
@@ -76,6 +76,7 @@ const userSchema = new mongoose.Schema(
     password: {
         type: String,
         required: true,
+        select: false
     },
 },
 {
@@ -83,11 +84,12 @@ const userSchema = new mongoose.Schema(
 }
 );
 
-userSchema.methods.getJWTToken = async function () {
-    const user = this;
-    const token = await jwt.sign({_id:this._id},"EXPRESS_SECRET_KEY")// this line generates a JSON Web Token (JWT) for the authenticated user. It uses the sign method from the jsonwebtoken library, which takes two arguments: the payload (in this case, an object containing the user's ID) and a secret key used to sign the token. The generated token can be used for subsequent requests to authenticate the user.
-    return token;
-}
+
+    userSchema.methods.getJWTToken = async function () {
+        const user = this;
+        const token = await jwt.sign({_id:this._id},"EXPRESS_SECRET_KEY")// this line generates a JSON Web Token (JWT) for the authenticated user. It uses the sign method from the jsonwebtoken library, which takes two arguments: the payload (in this case, an object containing the user's ID) and a secret key used to sign the token. The generated token can be used for subsequent requests to authenticate the user.
+        return token;
+    }
 
 userSchema.methods.validatePassword = async function(PasswordInputByUser){
     const user = this;

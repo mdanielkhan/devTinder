@@ -2,13 +2,18 @@ const express = require('express');
 const UserAuth = require("../middlewares/auth");
 const bcrypt = require("bcryptjs");
 const UserModel =require("../models/user");
+const { validatorLoginEditing } = require("../utils/validators")
 const profilerouter = express.Router();
 
-profilerouter.post("/profile/view", UserAuth, async (req,res)=>{
+profilerouter.get("/profile/view", UserAuth, async (req,res)=>{
     try{
-    
-   const user = req.user
-    res.send(user);
+    const token = req.token
+    const user = req.user
+    if(token){
+       res.send(user);
+    }
+   
+   
     }catch(err){
         res.status(500).json({message: "Internal server error", error: err.message})
     }

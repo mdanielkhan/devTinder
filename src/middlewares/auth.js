@@ -5,7 +5,7 @@ const UserAuth = async (req, res, next) => {
     try{
         const {token }=req.cookies //reading th token from the request header
         if(!token){
-            throw new Error("No token found");
+            return res.status(401).send("Please login")
         }
         const decodedMessage = await jwt.verify(token,"EXPRESS_SECRET_KEY") //verifying the token using the secret key
         const id = decodedMessage._id; //getting the user id from the decoded message
@@ -16,7 +16,7 @@ const UserAuth = async (req, res, next) => {
         req.user = user; //attaching the user object to the request object
         next(); //calling the next middleware function
     }catch(err){
-        res.status(401).json({message: "Unauthorized", error: err.message}) 
+        res.status(401).json({message: "Unauthorized", error: err.message})
     }
 
 

@@ -15,11 +15,10 @@ const validatorSignUp = (req) => {
 
 
 const validatorLoginEditing = (req) => {
-    const allowedFields = ["firstName", "lastName","age", "gender","about","skills" ];
+    const allowedFields = ["firstName", "lastName", "age", "gender", "photoUrl", "about", "skills"];
 
-
-    const isEditAllowed = Object.keys(req.body).every((field )=>allowedFields.includes(field));
-     return isEditAllowed;   
+    const isEditAllowed = Object.keys(req.body).every((field) => allowedFields.includes(field));
+    return isEditAllowed;
 }
 
 
