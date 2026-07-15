@@ -7,7 +7,7 @@ const UserAuth = async (req, res, next) => {
         if(!token){
             return res.status(401).send("Please login")
         }
-        const decodedMessage = await jwt.verify(token,"EXPRESS_SECRET_KEY") //verifying the token using the secret key
+        const decodedMessage = await jwt.verify(token,process.env.JWT_SECRET) //verifying the token using the secret key
         const id = decodedMessage._id; //getting the user id from the decoded message
         const user = await UserModel.findById(id);
         if(!user){
