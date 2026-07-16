@@ -27,6 +27,7 @@ userRouter.get("/user/requests/received", UserAuth, async (req, res) => {
 userRouter.get("/user/connections", UserAuth, async (req, res) => {
     try {
         const loggedin_user = req.user._id
+        
 
         const connectionRequests = await connectionRequest.find({
             $or: [
@@ -37,8 +38,8 @@ userRouter.get("/user/connections", UserAuth, async (req, res) => {
           .populate("receiver", user_save)
 
         const data = connectionRequests.map((row) => {
-    if (row.receiver.toString() === loggedin_user.toString()) {
-        return row.sender
+    if (row.receiver._id.toString() === loggedin_user.toString()) { // 53b === 53b → true
+    return row.sender
     }
     return row.receiver
 })
