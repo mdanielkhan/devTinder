@@ -37,12 +37,11 @@ userRouter.get("/user/connections", UserAuth, async (req, res) => {
           .populate("receiver", user_save)
 
         const data = connectionRequests.map((row) => {
-            if (row.receiver.toString() === loggedin_user.toString()) {
-                return row.sender
-            }
-            return row.receiver
-        })
-
+    if (row.receiver.toString() === loggedin_user.toString()) {
+        return row.sender
+    }
+    return row.receiver
+})
         res.json({ data })
 
     } catch (err) {
