@@ -5,20 +5,14 @@ const UserModel =require("../models/user");
 const { validatorLoginEditing } = require("../utils/validators")
 const profilerouter = express.Router();
 
-profilerouter.get("/profile/view", UserAuth, async (req,res)=>{
-    try{
-    const token = req.token
-    const user = req.user
-    if(token){
-       res.send(user);
-    }
-   
-   
-    }catch(err){
-        res.status(500).json({message: "Internal server error", error: err.message})
-    }
-
-})
+profilerouter.get("/profile/view", UserAuth, async (req, res) => {
+  try {
+    const user = req.user;
+    res.send(user);
+  } catch (err) {
+    res.status(500).json({ message: "Internal server error", error: err.message });
+  }
+});
 
 profilerouter.patch("/profile/view/edit", UserAuth, async (req,res)=>{
     try{

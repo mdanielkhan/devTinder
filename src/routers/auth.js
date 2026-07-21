@@ -60,7 +60,10 @@ authrouter.post("/login"  , async (req,res)=>{
         const isPasswordValid = await user.validatePassword(password);
         if(user && isPasswordValid){
          const token = await user.getJWTToken();
-           res.cookie("token",token)
+           res.cookie("token",token,{
+            expires: new Date(Date.now()+ 7 * 24 *60 *60 *1000),
+            httpOnly    : true
+           })
             console.log("Token generated:", token); // Log the generated token to the console
            const userObj = user.toObject();
            delete userObj.password;
