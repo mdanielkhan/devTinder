@@ -86,5 +86,36 @@ userRouter.get("/user/feed", UserAuth, async (req, res) => {
     }
 });
 
+userRouter.get("/user/:targetid" , UserAuth , async (req,res ) =>{
+   
+   try{ const loggedin_user = req.user._id
+    const {targetid} = req.params
+
+    const isConnected  = await connectionRequest.findOne({
+        $or:[
+            {sender:loggedin_user,receiver:targetid,status:"accepted"},
+            {sender:targetid,receiver:loggedin_user,status:"accepted"},
+            
+        ]
+    })
+
+    if(!isConnected){
+        return res.status(403).json({ message: "Not authorized to view this profile" })
+    }
+
+    const target_user = await UserModel.findById(targetid).select(user_save)
+
+    if(!target_user){
+        return res.status(403).json({ message: "No user found" })
+    }
+    res.json({ data: target_user });
+}catch(err){
+    res.status(500).json("Internal server error")
+
+}
+
+
+})
+
 module.exports= userRouter // 
     

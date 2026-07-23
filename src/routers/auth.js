@@ -52,7 +52,7 @@ authrouter.post("/signup", async (req,res)=>{
 authrouter.post("/login"  , async (req,res)=>{
     try{
 
-        const {email,password,age }=req.body ;
+        const {email,password }=req.body ;
         const user = await UserModel.findOne({email}).select("+password");
         if(!user){
             return res.status(400).json({message:"User not found"});

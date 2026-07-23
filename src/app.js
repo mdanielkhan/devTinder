@@ -7,6 +7,7 @@ const authrouter = require("./routers/auth");
 const profilerouter = require("./routers/profile");
 const requestrouter = require("./routers/request");
 const userRouter = require("./routers/user");
+const chatrouter = require("./routers/chat")
 const cors = require("cors")
 const http = require("http")
 
@@ -26,6 +27,7 @@ app.use("/",authrouter);
 app.use("/",profilerouter);
 app.use("/",requestrouter); 
 app.use("/",userRouter);
+app.use("/",chatrouter)
 
 
 
